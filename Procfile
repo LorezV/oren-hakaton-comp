@@ -1,1 +1,1 @@
-web: gunicorn hakaton.wsgi --chdir=/hakaton/ --log-file -
+web: gunicorn hakaton.wsgi --log-file -
