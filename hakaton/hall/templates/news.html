@@ -2,17 +2,34 @@
 {% load static %}
 
 {% block title %}
- | Новости
+| Новости
+{% endblock %}
+
+{% block header_inner %}
 {% endblock %}
 
 {% block content %}
-  <div class="news-grid">
-    {% for post in object_list %}
-    <a href="{% url 'newsDetail' pk=post.id %}" class="news-post" style="background-image: url({{post.image.url}});">
-      <div class="new-post-wrapper">
-        <div class="news-post-title">{{post.title}}</div>
-      </div>
-    </a>
-    {% endfor %}
+<div class="news-grid">
+  {% for post in object_list %}
+  <a href="{% url 'newsDetail' pk=post.id %}" class="news-post" style="background-image: url({{post.image.url}});">
+    <div class="new-post-wrapper">
+      <div class="news-post-date">{{post.publish_date}}</div>
+      <div class="news-post-title">{{post.title}}</div>
+    </div>
+  </a>
+  {% endfor %}
+</div>
+{% if page_obj.paginator.num_pages > 1 %}
+<div class="pagination">
+  <div class="pagination-buttons">
+    <a class="pagination-block" href="{% if page_obj.has_previous %} ?page={{ page_obj.previous_page_number }} {% endif %}">-</a>
+    <div class="pagination-block current">
+      <span class="current">
+        {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+      </span>
+    </div>
+    <a class="pagination-block" href="{% if page_obj.has_next %} ?page={{ page_obj.next_page_number }} {% endif %}">+</a>
   </div>
+</div>
+{% endif %}
 {% endblock %}

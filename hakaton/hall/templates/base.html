@@ -15,6 +15,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="{% static 'css/footer.css' %}">
   <link rel="stylesheet" href="{% static 'css/news.css' %}">
+  <link rel="stylesheet" href="{% static 'css/category.css' %}">
+  <link rel="stylesheet" href="{% static 'css/image-viewer.css' %}">
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
     rel="stylesheet">
@@ -22,14 +24,27 @@
 
 <body>
   <header class="header">
-    <a href="{% url 'news' %}" class="header-logo">
-      <img src="{% static 'img/logo.png' %}" alt="">
-    </a>
+    <div class="row">
+      <a href="{% url 'news' %}" class="header-logo">
+        <img src="{% static 'img/logo.png' %}" alt="">
+      </a>
+      <div class="search">
+        <img class="search_open" src="{% static 'img/icons/search.svg' %}" alt="">
+        <div class="search_line">
+          <form method="GET" action="">
+            {% csrf_token %}
+            <input type="search" name="site_search" placeholder="Поиск по сайту...">
+          </form>
+          <div class="search_close"></div>
+        </div>
+      </div>
+    </div>
     <!-- <div class="header-search-wrapper">
       <form method="GET" class="header-search-form">
         <input type="search" name="header-search" placeholder="Поиск по сайту...">
       </form>
     </div> -->
+    {% block header_inner %}{% endblock %}
     <div class="header-nav-wrapper">
       <div class="header-burger-menu">
         <img src="{% static 'img/icons/menu.svg' %}" alt="">
@@ -37,6 +52,7 @@
       <nav class="header-nav">
         <a href="{% url 'news' %}" class="{% if request.resolver_match.view_name == 'news' %}active{% endif %}">Новости</a>
         <a href="{% url 'about' %}" class="{% if request.resolver_match.view_name == 'about' %}active{% endif %}">О нас</a>
+        <a href="{% url 'fonds' %}" class="{% if request.resolver_match.view_name == 'fonds' %}active{% endif %}">Фонды</a>
         <a href="{% url 'contact' %}" class="{% if request.resolver_match.view_name == 'contact' %}active{% endif %}">Задать вопрос</a>
         {% if request.user.is_authenticated %}
         <a href="{% url 'profile' pk=request.user.id %}" class="{% if request.resolver_match.view_name == 'profile' %}active{% endif %}">Личный кабинет</a>
@@ -54,6 +70,14 @@
   <footer class='footer dark'>
     <h2>Footer</h2>
   </footer>
+
+  <div class="image-viewer hide">
+    <div class="image-viewer-header">
+      <span>Просмотр документа.</span>
+      <div class="image-viewer-close"></div>
+    </div>
+    <div class="image-viewer-image"><img></div>
+  </div>
 
   <script src="/static/js/jquery.js"></script>
   <script src="/static/js/main.js"></script>
