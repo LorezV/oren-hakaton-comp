@@ -21,6 +21,10 @@ footer {
   flex: 0 0 100px;
 }
 
+.map {
+  width: 100%;
+  display: flex;
+}
 
 .dark {
   background-color: rgb(58, 58, 58);
