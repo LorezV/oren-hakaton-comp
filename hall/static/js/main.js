@@ -14,6 +14,7 @@ $('.image-viewer-close').on('click', (e) => {
   closeImageViewer();
 })
 
+
 let imageViewer = document.querySelector('.image-viewer');
 let imageViewerTitleSlot = imageViewer.querySelector('.image-viewer-title')
 let imageViewerImgSlot = imageViewer.querySelector('img')
@@ -71,5 +72,4 @@ function closeMHeader() {
 function closeAllFixed() {
   closeSearch()
   closeImageViewer()
-  closeMHeader()
 }
