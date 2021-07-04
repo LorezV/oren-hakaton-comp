@@ -1,1 +1,1 @@
-web: gunicorn hakaton.wsgi --log-file -
+web: gunicorn hakaton.hakaton.wsgi --log-file -
