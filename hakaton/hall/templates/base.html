@@ -16,6 +16,8 @@
   <link rel="stylesheet" href="{% static 'css/footer.css' %}">
   <link rel="stylesheet" href="{% static 'css/news.css' %}">
   <link rel="stylesheet" href="{% static 'css/category.css' %}">
+  <link rel="stylesheet" href="{% static 'css/search.css' %}">
+  <link rel="stylesheet" href="{% static 'css/pagination.css' %}">
   <link rel="stylesheet" href="{% static 'css/image-viewer.css' %}">
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
@@ -30,20 +32,29 @@
       </a>
       <div class="search">
         <img class="search_open" src="{% static 'img/icons/search.svg' %}" alt="">
-        <div class="search_line">
-          <form method="GET" action="">
-            {% csrf_token %}
-            <input type="search" name="site_search" placeholder="Поиск по сайту...">
-          </form>
-          <div class="search_close"></div>
+        <div class="search_wrapper">
+          <div class="search_line">
+            <form method="GET" action="">
+              <input type="search" name="site_search" placeholder="Поиск по сайту...">
+            </form>
+            <div class="search_close"></div>
+          </div>
+          <div class="search_result_wrapper">
+            <h4>Результаты поиска:</h4>
+            <a class="search_result" href="{% url 'files' %}">
+              <span>- </span>
+              <div class="search_result_image"><img src="/media/fond1/register/deal1/0001 обложка.jpg"></div>
+              <span>0001 обложка.jpg</span>
+            </a>
+            <a class="search_result" href="{% url 'files' %}">
+              <span>- </span>
+              <div class="search_result_image"><img src="/media/fond1/register/deal1/0002 л.1.jpg"></div>
+              <span>0002 л.1.jpg</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
-    <!-- <div class="header-search-wrapper">
-      <form method="GET" class="header-search-form">
-        <input type="search" name="header-search" placeholder="Поиск по сайту...">
-      </form>
-    </div> -->
     {% block header_inner %}{% endblock %}
     <div class="header-nav-wrapper">
       <div class="header-burger-menu">
@@ -55,7 +66,11 @@
         <a href="{% url 'fonds' %}" class="{% if request.resolver_match.view_name == 'fonds' %}active{% endif %}">Фонды</a>
         <a href="{% url 'contact' %}" class="{% if request.resolver_match.view_name == 'contact' %}active{% endif %}">Задать вопрос</a>
         {% if request.user.is_authenticated %}
-        <a href="{% url 'profile' pk=request.user.id %}" class="{% if request.resolver_match.view_name == 'profile' %}active{% endif %}">Личный кабинет</a>
+          {% if request.user.is_superuser %}
+          <a href="/admin">Админка</a>
+          {% else %}
+          <a href="{% url 'profile' pk=request.user.id %}" class="{% if request.resolver_match.view_name == 'profile' %}active{% endif %}">Личный кабинет</a>
+          {% endif %}
         {% else %}
         <a href="{% url 'login' %}" class="{% if request.resolver_match.view_name == 'login' %}active{% endif %}">Войти</a>
         {% endif %}
@@ -73,7 +88,7 @@
 
   <div class="image-viewer hide">
     <div class="image-viewer-header">
-      <span>Просмотр документа.</span>
+      <span class="image-viewer-title">Просмотр документа.</span>
       <div class="image-viewer-close"></div>
     </div>
     <div class="image-viewer-image"><img></div>
