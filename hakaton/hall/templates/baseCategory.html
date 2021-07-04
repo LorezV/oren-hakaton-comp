@@ -8,13 +8,26 @@
   {% block p-category %}
   <ul class="category">
     <li>
-      <a href="">Фонд 1</a>
+      <a href="{% url 'registers' %}">Фонд 1</a>
       <ul>
         <li>
-          <a href="">Опись 1</a>
+          <a href="{% url 'deals' %}">Опись 1</a>
           <ul>
             <li>
-              <a href="">Дело 1а</a>
+              <a href="{% url 'files' %}">Дело 1а</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="{% url 'registers' %}">Фонд 1</a>
+      <ul>
+        <li>
+          <a href="{% url 'deals' %}">Опись 1</a>
+          <ul>
+            <li>
+              <a href="{% url 'files' %}">Дело 1а</a>
             </li>
           </ul>
         </li>
